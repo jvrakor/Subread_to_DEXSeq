@@ -1,0 +1,17 @@
+Package: loadSubread
+Type: Package
+Title: Load subread output
+Version: 0.0.1
+Author: jvrakor
+Maintainer: jvrakor <jost@genialis.com>
+Description: One function package for handling subread output.
+Depends: R (>= 3.4.3),
+         DEXSeq,
+         GenomicRanges,
+         dplyr,
+         IRanges
+Imports: magrittr
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

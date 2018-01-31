@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1517406378308.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9BCDF49",
+    "lastKnownWriteTime" : 1517410186,
+    "last_content_update" : 1517410186596,
+    "path" : "~/loadSubread/R/loadsubread.R",
+    "project_path" : "R/loadsubread.R",
+    "properties" : {
+        "cursorPosition" : "27,32",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

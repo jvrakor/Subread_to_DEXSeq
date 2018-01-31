@@ -1,13 +1,33 @@
 # Subread_to_DEXSeq
 Vivek Bhardwaj  
 
-## These functions provide a way to use featurecounts output for DEXSeq
+## These tool provides a way to use featurecounts output for DEXSeq
 
-The directory contains two scripts:
+1) **dexseq_prepare_annotation2** : It's same as the "dexseq_prepare_annotation.py" that comes with DEXSeq, but with an added option to output featureCounts-readable GTF file.
 
-1) **dexseq_prepare_annotation2.py** : It's same as the "dexseq_prepare_annotation.py" that comes with DEXSeq, but with an added option to output featureCounts-readable GTF file.
+2) **loadSubread** : R library that provides a function "DEXSeqDataSetFromFeatureCounts", to load the output of featureCounts as a dexSeq dataset (dxd) object.
 
-2) **load_SubreadOutput.R** : Provides a function "DEXSeqDataSetFromFeatureCounts", to load the output of featureCounts as a dexSeq dataset (dxd) object.
+## Install
+
+Install python tool:
+
+```
+pip install dexseq_prepare_annotation2
+```
+
+Install R library (in R):
+
+```
+> devtools::install_github("jvrakor/Subread_to_DEXSeq", subdir = "loadSubread")
+```
+
+## Dependencies
+
+**dexseq_prepare_annotation2** requires [HTSeq](https://htseq.readthedocs.io)
+
+**loadSubread** requires [devtools](https://cran.r-project.org/web/packages/devtools/README.html), [dplyr](https://www.r-project.org/nosvn/pandoc/dplyr.html),
+[DEXSeq](https://bioconductor.org/packages/release/bioc/html/DEXSeq.html), [GenomicRanges](https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html),
+and [IRanges](https://bioconductor.org/packages/release/bioc/html/IRanges.html) 
 
 ## Usage example
 
@@ -16,13 +36,13 @@ The directory contains two scripts:
 Syntax :
 
 ```bash
-python dexseq_prepare_annotation2.py -f <featurecounts.gtf> <input.gtf> <dexseq_counts.gff>
+dexseq_prepare_annotation2 -f <featurecounts.gtf> <input.gtf> <dexseq_counts.gff>
 ```
 
 Example :
 
 ```bash
-python dexseq_prepare_annotation2.py -f dm6_ens76_flat.gtf dm6_ens76.gtf dm6_ens76_flat.gff
+dexseq_prepare_annotation2 -f dm6_ens76_flat.gtf dm6_ens76.gtf dm6_ens76_flat.gff
 ```
 
 you will get a file "dm6_ens76_flat.gff" and another "dm6_ens76_flat.gtf" (for featurecounts)
@@ -43,14 +63,12 @@ We can use the **-O** option to count the reads overlapping to multiple exons (s
 
 **3) load into DEXSeq****
 
-*This script requires dplyr, and DEXSeq installed in your R..*
-
 In R prepare a sampleData data.frame, which contains sample names used for featurecounts as rownames, plus condition, and other variables you want to use for DEXSeq design matrix.
 
 Example :
 
 ```r
-source("load_SubreadOutput.R")
+library("loadSubread")
 samp <- data.frame(row.names = c("cont_1","cont_2","test_1","test_2"), 
                         condition = rep(c("control","trt"),each=2))
 dxd.fc <- DEXSeqDataSetFromFeatureCounts("dm6_fCount.out",
